@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../core/services/firebase/analytics_service.dart';
 import '../../core/state/app_settings.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../data/artist_repository.dart';
@@ -81,7 +82,7 @@ class EventDetailScreen extends ConsumerWidget {
           12 + MediaQuery.of(context).padding.bottom,
         ),
         child: FilledButton.icon(
-          onPressed: canBook ? () => _book(context, event.ticketUrl!) : null,
+          onPressed: canBook ? () => _book(context, event) : null,
           icon: const Icon(Icons.open_in_new),
           label: Text(
             event.status == EventStatus.soldout ? l10n.eventSoldOut : l10n.eventBook,
@@ -91,12 +92,21 @@ class EventDetailScreen extends ConsumerWidget {
     );
   }
 
-  // Opens the affiliate-wrapped ticket URL in the external browser/app.
-  Future<void> _book(BuildContext context, String url) async {
+  // Opens the affiliate-wrapped ticket URL in the external browser/app and logs
+  // the click for affiliate attribution.
+  Future<void> _book(BuildContext context, Event event) async {
     final messenger = ScaffoldMessenger.of(context);
-    final ok = await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+    AnalyticsService.instance.logBookClick(
+      eventId: event.id,
+      source: event.sources.isNotEmpty ? event.sources.first : 'unknown',
+      city: event.city,
+    );
+    final ok = await launchUrl(
+      Uri.parse(event.ticketUrl!),
+      mode: LaunchMode.externalApplication,
+    );
     if (!ok) {
-      messenger.showSnackBar(SnackBar(content: Text(url)));
+      messenger.showSnackBar(SnackBar(content: Text(event.ticketUrl!)));
     }
   }
 }

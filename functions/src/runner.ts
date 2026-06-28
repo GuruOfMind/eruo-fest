@@ -1,12 +1,3 @@
-// Load functions/.env for local runs; harmless if dotenv isn't installed (CI
-// injects env directly).
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require("dotenv").config();
-} catch {
-  /* optional */
-}
-
 import { db, messaging } from "./admin";
 import { runCycle } from "./pipeline";
 

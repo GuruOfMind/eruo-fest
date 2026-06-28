@@ -56,6 +56,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'No events yet. Follow some artists to see their shows here.';
 
   @override
+  String get discoverError =>
+      'Couldn\'t load events. Check your connection and try again.';
+
+  @override
   String discoverNearCity(String city) {
     return 'Events near $city';
   }

@@ -56,6 +56,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا توجد فعاليات بعد. تابع بعض الفنانين لتظهر حفلاتهم هنا.';
 
   @override
+  String get discoverError =>
+      'تعذّر تحميل الفعاليات. تحقّق من اتصالك وحاول مجددًا.';
+
+  @override
   String discoverNearCity(String city) {
     return 'فعاليات قرب $city';
   }

@@ -188,6 +188,12 @@ abstract class AppLocalizations {
   /// **'No events yet. Follow some artists to see their shows here.'**
   String get discoverEmpty;
 
+  /// No description provided for @discoverError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load events. Check your connection and try again.'**
+  String get discoverError;
+
   /// No description provided for @discoverNearCity.
   ///
   /// In en, this message translates to:

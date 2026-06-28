@@ -1,3 +1,13 @@
+// Load functions/.env (GOOGLE_APPLICATION_CREDENTIALS, API keys) before the
+// Admin SDK reads credentials. Harmless if dotenv isn't installed (CI injects
+// env directly).
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require("dotenv").config();
+} catch {
+  /* optional */
+}
+
 import * as admin from "firebase-admin";
 
 let app: admin.app.App | undefined;
@@ -9,7 +19,12 @@ let app: admin.app.App | undefined;
  * Admin SDK talks to Firestore/FCM directly, no Cloud Functions required.
  */
 export function getApp(): admin.app.App {
-  app ??= admin.initializeApp();
+  if (!app) {
+    app = admin.initializeApp();
+    // Optional event fields (price, currency, lat/lng) are often undefined;
+    // ignore them rather than throwing on write.
+    app.firestore().settings({ ignoreUndefinedProperties: true });
+  }
   return app;
 }
 

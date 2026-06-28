@@ -12,8 +12,34 @@ import { ArtistResolver, NormalizedEvent, RawEvent } from "./types";
  * parse.
  */
 export interface IngestFetchers {
-  ticketmasterByCity(city: string, country: string): Promise<unknown>;
-  bandsintownByArtist(artistName: string): Promise<unknown>;
+  // Per-artist keyword search — the right model for a curated catalog: a
+  // city-wide scan never intersects niche MENA artists, but searching each
+  // artist by name surfaces their actual tour dates.
+  ticketmasterByKeyword(keyword: string): Promise<unknown>;
+  // Optional: only wired when BANDSINTOWN_APP_ID is set. Disabled for now.
+  bandsintownByArtist?(artistName: string): Promise<unknown>;
+}
+
+/**
+ * Country codes we keep events for — EuroFest targets expats in Europe, so we
+ * drop a followed artist's non-European dates (e.g. US/Canada shows).
+ * Overridable via `EUROFEST_COUNTRIES` (comma-separated ISO-3166 alpha-2).
+ */
+export function europeanCountries(
+  env: NodeJS.ProcessEnv = process.env,
+): Set<string> {
+  const fromEnv = (env.EUROFEST_COUNTRIES ?? "")
+    .split(",")
+    .map((c) => c.trim().toUpperCase())
+    .filter(Boolean);
+  return new Set(
+    fromEnv.length
+      ? fromEnv
+      : [
+          "DE", "FR", "GB", "NL", "BE", "AT", "CH", "SE", "DK", "NO",
+          "ES", "IT", "PT", "IE", "FI", "PL", "CZ", "HU", "GR", "LU",
+        ],
+  );
 }
 
 /**
@@ -41,6 +67,7 @@ export function buildEvents(
   resolver: ArtistResolver,
   affiliateConfig: AffiliateConfig,
   now?: Date,
+  allowedCountries?: Set<string>,
 ): NormalizedEvent[] {
   const adapters = [ticketmasterAdapter, bandsintownAdapter];
   const raw: RawEvent[] = [];
@@ -50,7 +77,11 @@ export function buildEvents(
   }
   const normalized = raw
     .map((r) => normalizeEvent(r, resolver, affiliateConfig, now))
-    .filter((e): e is NormalizedEvent => e !== null);
+    .filter((e): e is NormalizedEvent => e !== null)
+    .filter(
+      (e) =>
+        !allowedCountries || allowedCountries.has((e.country ?? "").toUpperCase()),
+    );
   return dedupeBatch(normalized);
 }
 
@@ -68,31 +99,39 @@ export async function runIngest(
   const artists = artistsSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
   const resolver = buildResolver(artists as never);
 
-  // Cities to pull from city-based sources (Ticketmaster). Derived from the
-  // distinct home cities users have chosen.
-  const usersSnap = await db.collection("users").get();
-  const cities = new Set<string>();
-  usersSnap.forEach((u) => {
-    const c = u.get("homeCity");
-    if (typeof c === "string" && c) cities.add(c);
-  });
-
+  // Search each catalog artist by name across the sources. A single artist's
+  // source failure is logged and skipped — one error must not abort the run.
   const payloads: { adapterSource: string; payload: unknown }[] = [];
-  for (const city of cities) {
-    payloads.push({
-      adapterSource: "ticketmaster",
-      payload: await fetchers.ticketmasterByCity(city, ""),
-    });
-  }
   for (const a of artists as { name?: string }[]) {
     if (!a.name) continue;
-    payloads.push({
-      adapterSource: "bandsintown",
-      payload: await fetchers.bandsintownByArtist(a.name),
-    });
+    try {
+      payloads.push({
+        adapterSource: "ticketmaster",
+        payload: await fetchers.ticketmasterByKeyword(a.name),
+      });
+    } catch (e) {
+      console.warn(`ticketmaster fetch failed for ${a.name}:`, (e as Error).message);
+    }
+    // Bandsintown is optional (disabled unless BANDSINTOWN_APP_ID is set).
+    if (fetchers.bandsintownByArtist) {
+      try {
+        payloads.push({
+          adapterSource: "bandsintown",
+          payload: await fetchers.bandsintownByArtist(a.name),
+        });
+      } catch (e) {
+        console.warn(`bandsintown fetch failed for ${a.name}:`, (e as Error).message);
+      }
+    }
   }
 
-  const events = buildEvents(payloads, resolver, affiliateConfig);
+  const events = buildEvents(
+    payloads,
+    resolver,
+    affiliateConfig,
+    undefined,
+    europeanCountries(),
+  );
 
   let upserted = 0;
   const created: NormalizedEvent[] = [];

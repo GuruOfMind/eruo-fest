@@ -20,6 +20,7 @@
 
   "discoverTitle": "Discover",
   "discoverEmpty": "No events yet. Follow some artists to see their shows here.",
+  "discoverError": "Couldn't load events. Check your connection and try again.",
   "discoverNearCity": "Events near {city}",
   "@discoverNearCity": {
     "placeholders": { "city": { "type": "String" } }

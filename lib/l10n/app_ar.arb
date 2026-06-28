@@ -17,6 +17,7 @@
 
   "discoverTitle": "اكتشف",
   "discoverEmpty": "لا توجد فعاليات بعد. تابع بعض الفنانين لتظهر حفلاتهم هنا.",
+  "discoverError": "تعذّر تحميل الفعاليات. تحقّق من اتصالك وحاول مجددًا.",
   "discoverNearCity": "فعاليات قرب {city}",
   "discoverAllCities": "كل المدن",
   "eventUpcoming": "الفعاليات القادمة",
