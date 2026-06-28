@@ -1,0 +1,27 @@
+{
+  "name": "eurofest-functions",
+  "version": "0.1.0",
+  "description": "EuroFest ingestion & notification Cloud Functions",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seed": "npm run build && node lib/seed.js",
+    "ingest": "npm run build && node lib/runner.js",
+    "deploy:blaze": "firebase deploy --only functions"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.1.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  },
+  "private": true
+}

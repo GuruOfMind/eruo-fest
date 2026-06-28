@@ -1,0 +1,39 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "emulators": {
+    "firestore": { "port": 8080 },
+    "auth": { "port": 9099 },
+    "ui": { "enabled": true }
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "euro-fest-12345",
+          "appId": "1:473161954406:android:a73deefec5a34cae4829a7",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "euro-fest-12345",
+          "appId": "1:473161954406:ios:e5fd8cfd8a0862be4829a7",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "euro-fest-12345",
+          "configurations": {
+            "android": "1:473161954406:android:a73deefec5a34cae4829a7",
+            "ios": "1:473161954406:ios:e5fd8cfd8a0862be4829a7"
+          }
+        }
+      }
+    }
+  }
+}

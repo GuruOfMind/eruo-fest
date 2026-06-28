@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473161954406",
+    "project_id": "euro-fest-12345",
+    "storage_bucket": "euro-fest-12345.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473161954406:android:a73deefec5a34cae4829a7",
+        "android_client_info": {
+          "package_name": "com.eurofest.euro_fest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY5D8213beipynbvVACEOFnR1NAKiULKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

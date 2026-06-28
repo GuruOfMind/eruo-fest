@@ -1,0 +1,72 @@
+{
+  "@@locale": "en",
+  "appName": "EuroFest",
+  "@appName": {
+    "description": "The application name"
+  },
+  "navDiscover": "Discover",
+  "navMyArtists": "My Artists",
+  "navNotifications": "Notifications",
+  "navSettings": "Settings",
+
+  "onboardingWelcomeTitle": "Never miss a show",
+  "onboardingWelcomeBody": "Follow your favourite artists and get notified the moment they announce a concert near you in Europe.",
+  "onboardingChooseLanguage": "Choose your language",
+  "onboardingChooseCity": "Where are you based?",
+  "onboardingChooseArtists": "Pick artists you love",
+  "onboardingContinue": "Continue",
+  "onboardingGetStarted": "Get started",
+  "onboardingSkip": "Skip",
+
+  "discoverTitle": "Discover",
+  "discoverEmpty": "No events yet. Follow some artists to see their shows here.",
+  "discoverNearCity": "Events near {city}",
+  "@discoverNearCity": {
+    "placeholders": { "city": { "type": "String" } }
+  },
+  "discoverAllCities": "All cities",
+  "eventUpcoming": "Upcoming events",
+
+  "myArtistsTitle": "My Artists",
+  "myArtistsEmpty": "You are not following anyone yet.",
+  "myArtistsBrowseCta": "Browse artists",
+  "catalogTitle": "Browse artists",
+  "searchArtistsHint": "Search artists or genres",
+  "searchNoResults": "No artists match your search.",
+  "follow": "Follow",
+  "following": "Following",
+
+  "notificationsTitle": "Notifications",
+  "notificationsEmpty": "No notifications yet.",
+  "notificationNewEvent": "New event",
+  "notificationsMarkAllRead": "Mark all read",
+
+  "settingsTitle": "Settings",
+  "settingsLanguage": "Language",
+  "settingsCity": "City",
+  "settingsNotifications": "Notifications",
+
+  "notifPrefsTitle": "Notification preferences",
+  "notifPrefsMaster": "Push notifications",
+  "notifPrefsMasterSub": "Alerts when artists you follow announce a show",
+  "notifPrefsQuietHours": "Quiet hours",
+  "notifPrefsQuietHoursSub": "Don't push between these hours",
+  "notifPrefsFrom": "From",
+  "notifPrefsTo": "To",
+  "notifPrefsMutedCities": "Muted cities",
+  "notifPrefsMutedCitiesSub": "Hide push for events in these cities",
+  "notifPrefsArtists": "Per-artist alerts are managed from each artist's page.",
+
+  "eventBook": "Book tickets",
+  "eventSoldOut": "Sold out",
+  "eventCancelled": "Cancelled",
+  "eventOnSale": "On sale",
+  "eventAnnounced": "Announced",
+  "eventFrom": "From {price}",
+  "@eventFrom": {
+    "placeholders": { "price": { "type": "String" } }
+  },
+
+  "languageArabic": "العربية",
+  "languageEnglish": "English"
+}

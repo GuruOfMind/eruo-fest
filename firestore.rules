@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public catalog & events: readable by anyone, written only by the
+    // ingestion pipeline (Admin SDK, which bypasses these rules).
+    match /artists/{artistId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /venues/{venueId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Each user owns their profile, follows, and notifications.
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "@@locale": "ar",
+  "appName": "يورو فيست",
+  "navDiscover": "اكتشف",
+  "navMyArtists": "فنانيّ",
+  "navNotifications": "الإشعارات",
+  "navSettings": "الإعدادات",
+
+  "onboardingWelcomeTitle": "لا تفوّت أي حفلة",
+  "onboardingWelcomeBody": "تابع فنانيك المفضّلين واحصل على إشعار فور إعلانهم عن حفلة قريبة منك في أوروبا.",
+  "onboardingChooseLanguage": "اختر لغتك",
+  "onboardingChooseCity": "أين تقيم؟",
+  "onboardingChooseArtists": "اختر الفنانين الذين تحبّهم",
+  "onboardingContinue": "متابعة",
+  "onboardingGetStarted": "ابدأ الآن",
+  "onboardingSkip": "تخطّي",
+
+  "discoverTitle": "اكتشف",
+  "discoverEmpty": "لا توجد فعاليات بعد. تابع بعض الفنانين لتظهر حفلاتهم هنا.",
+  "discoverNearCity": "فعاليات قرب {city}",
+  "discoverAllCities": "كل المدن",
+  "eventUpcoming": "الفعاليات القادمة",
+
+  "myArtistsTitle": "فنانيّ",
+  "myArtistsEmpty": "أنت لا تتابع أحدًا بعد.",
+  "myArtistsBrowseCta": "تصفّح الفنانين",
+  "catalogTitle": "تصفّح الفنانين",
+  "searchArtistsHint": "ابحث عن فنانين أو أنواع موسيقية",
+  "searchNoResults": "لا يوجد فنانون مطابقون لبحثك.",
+  "follow": "متابعة",
+  "following": "تتابعه",
+
+  "notificationsTitle": "الإشعارات",
+  "notificationsEmpty": "لا توجد إشعارات بعد.",
+  "notificationNewEvent": "حفلة جديدة",
+  "notificationsMarkAllRead": "تعليم الكل كمقروء",
+
+  "settingsTitle": "الإعدادات",
+  "settingsLanguage": "اللغة",
+  "settingsCity": "المدينة",
+  "settingsNotifications": "الإشعارات",
+
+  "notifPrefsTitle": "إعدادات الإشعارات",
+  "notifPrefsMaster": "الإشعارات الفورية",
+  "notifPrefsMasterSub": "تنبيهات عند إعلان الفنانين الذين تتابعهم عن حفلة",
+  "notifPrefsQuietHours": "ساعات الهدوء",
+  "notifPrefsQuietHoursSub": "لا ترسل إشعارات بين هذه الساعات",
+  "notifPrefsFrom": "من",
+  "notifPrefsTo": "إلى",
+  "notifPrefsMutedCities": "مدن مكتومة",
+  "notifPrefsMutedCitiesSub": "إخفاء إشعارات الفعاليات في هذه المدن",
+  "notifPrefsArtists": "تُدار تنبيهات كل فنان من صفحته.",
+
+  "eventBook": "احجز التذاكر",
+  "eventSoldOut": "نفدت التذاكر",
+  "eventCancelled": "أُلغيت",
+  "eventOnSale": "متاحة للبيع",
+  "eventAnnounced": "مُعلَنة",
+  "eventFrom": "ابتداءً من {price}",
+
+  "languageArabic": "العربية",
+  "languageEnglish": "English"
+}
