@@ -42,11 +42,11 @@ export function liveFetchers(env: NodeJS.ProcessEnv = process.env): IngestFetche
   const get = rateLimitedGetter(250); // ≤4 req/s, safely under TM's limit
 
   const fetchers: IngestFetchers = {
-    async ticketmasterByKeyword(keyword) {
+    async ticketmasterByKeyword(keyword, classification = "music") {
       const url = new URL("https://app.ticketmaster.com/discovery/v2/events.json");
       url.searchParams.set("apikey", tmKey);
       url.searchParams.set("keyword", keyword);
-      url.searchParams.set("classificationName", "music");
+      url.searchParams.set("classificationName", classification);
       url.searchParams.set("size", "50");
       return get(url, "Ticketmaster");
     },

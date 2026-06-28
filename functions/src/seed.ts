@@ -13,7 +13,7 @@ export async function seedCatalog(
   for (const a of SEED_ARTISTS) {
     batch.set(
       db.collection("artists").doc(a.id),
-      { ...a, isMENA: a.isMENA ?? true },
+      { ...a, category: a.category ?? "music", isMENA: a.isMENA ?? true },
       { merge: true },
     );
   }

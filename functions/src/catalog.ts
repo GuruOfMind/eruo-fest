@@ -12,6 +12,7 @@ export interface SeedArtist {
   nameAr: string;
   aliases?: string[];
   genres: string[];
+  category?: "music" | "comedy";
   isMENA?: boolean;
 }
 
@@ -85,6 +86,41 @@ export const SEED_ARTISTS: SeedArtist[] = [
   { id: "mashrou-leila", name: "Mashrou' Leila", nameAr: "مشروع ليلى", genres: ["Indie", "Rock"] },
   { id: "yasmine-hamdan", name: "Yasmine Hamdan", nameAr: "ياسمين حمدان", genres: ["Indie"] },
   { id: "elyanna", name: "Elyanna", nameAr: "إليانا", genres: ["Pop", "Alternative"] },
+  { id: "dina-elwedidi", name: "Dina El Wedidi", nameAr: "دينا الوديدي", genres: ["Indie"] },
+  { id: "adonis", name: "Adonis", nameAr: "أدونيس", genres: ["Indie", "Rock"] },
+  { id: "autostrad", name: "Autostrad", nameAr: "أوتوستراد", genres: ["Indie"] },
+
+  // More Khaleeji / Iraqi
+  { id: "mohamed-abdo", name: "Mohammed Abdu", nameAr: "محمد عبده", genres: ["Khaleeji", "Tarab"] },
+  { id: "abdul-majeed-abdullah", name: "Abdul Majeed Abdullah", nameAr: "عبدالمجيد عبدالله", genres: ["Khaleeji"] },
+  { id: "majid-al-mohandis", name: "Majid Al Mohandis", nameAr: "ماجد المهندس", genres: ["Khaleeji", "Iraqi"] },
+  { id: "saif-nabeel", name: "Saif Nabeel", nameAr: "سيف نبيل", genres: ["Iraqi", "Pop"] },
+  { id: "rahma-riad", name: "Rahma Riad", nameAr: "رحمة رياض", genres: ["Iraqi", "Pop"] },
+  { id: "aseel-hameem", name: "Aseel Hameem", nameAr: "أصيل هميم", genres: ["Iraqi"] },
+
+  // More Egyptian Pop / Shaabi / Mahraganat
+  { id: "ramy-sabry", name: "Ramy Sabry", nameAr: "رامي صبري", genres: ["Pop"] },
+  { id: "ramy-gamal", name: "Ramy Gamal", nameAr: "رامي جمال", genres: ["Pop"] },
+  { id: "bahaa-sultan", name: "Bahaa Sultan", nameAr: "بهاء سلطان", genres: ["Pop"] },
+  { id: "hamada-helal", name: "Hamada Helal", nameAr: "حمادة هلال", genres: ["Pop"] },
+  { id: "ahmed-saad", name: "Ahmed Saad", nameAr: "أحمد سعد", genres: ["Shaabi", "Pop"] },
+  { id: "mahmoud-el-esseily", name: "Mahmoud El Esseily", nameAr: "محمود العسيلي", genres: ["Pop"] },
+  { id: "hassan-shakosh", name: "Hassan Shakosh", nameAr: "حسن شاكوش", genres: ["Mahraganat"] },
+  { id: "omar-kamal", name: "Omar Kamal", nameAr: "عمر كمال", genres: ["Mahraganat"] },
+
+  // Stand-up comedy (Arab comedians touring Europe / diaspora)
+  { id: "bassem-youssef", name: "Bassem Youssef", nameAr: "باسم يوسف", genres: ["Comedy"], category: "comedy" },
+  { id: "mo-amer", name: "Mo Amer", nameAr: "مو عامر", genres: ["Comedy"], category: "comedy" },
+  { id: "ramy-youssef", name: "Ramy Youssef", nameAr: "رامي يوسف", genres: ["Comedy"], category: "comedy" },
+  { id: "maz-jobrani", name: "Maz Jobrani", nameAr: "ماز جبراني", genres: ["Comedy"], category: "comedy" },
+  { id: "nemr", name: "Nemr", nameAr: "نمر", aliases: ["Nemr Abou Nassar"], genres: ["Comedy"], category: "comedy" },
+  { id: "eman-el-husseini", name: "Eman El Husseini", nameAr: "إيمان الحسيني", genres: ["Comedy"], category: "comedy" },
+  { id: "wonho-chung", name: "Wonho Chung", nameAr: "ونهو تشونغ", genres: ["Comedy"], category: "comedy" },
+  { id: "ahmed-ahmed", name: "Ahmed Ahmed", nameAr: "أحمد أحمد", genres: ["Comedy"], category: "comedy" },
+  { id: "amer-zahr", name: "Amer Zahr", nameAr: "عامر زهر", genres: ["Comedy"], category: "comedy" },
+  { id: "hisham-fageeh", name: "Hisham Fageeh", nameAr: "هشام فقيه", genres: ["Comedy"], category: "comedy" },
+  { id: "ibraheem-alkhairallah", name: "Ibraheem Alkhairallah", nameAr: "إبراهيم الخير الله", genres: ["Comedy"], category: "comedy" },
+  { id: "fahad-albutairi", name: "Fahad Albutairi", nameAr: "فهد البتيري", genres: ["Comedy"], category: "comedy" },
 ];
 
 export const SEED_VENUES: SeedVenue[] = [

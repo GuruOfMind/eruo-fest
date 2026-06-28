@@ -1,0 +1,26 @@
+[
+  {
+    "sourceEventId": "19447348",
+    "artistNames": ["Amr Diab - Live in Berlin 2026"],
+    "venueName": "Mercedes-Benz Arena",
+    "city": "Berlin",
+    "country": "DE",
+    "startsAt": "2026-09-12T20:00:00+02:00",
+    "status": "Available",
+    "ticketUrl": "https://www.eventim.de/en/event/amr-diab-berlin-19447348/",
+    "currency": "EUR",
+    "lat": 52.5051,
+    "lng": 13.4435
+  },
+  {
+    "sourceEventId": "20989169",
+    "artistNames": ["Schlager Nacht (Various)"],
+    "venueName": "Open-Air",
+    "city": "Völklingen",
+    "country": "DE",
+    "startsAt": "2026-08-22T19:00:00+02:00",
+    "status": "Cancelled",
+    "ticketUrl": "https://www.eventim.de/en/event/schlager-nacht-20989169/",
+    "currency": "EUR"
+  }
+]

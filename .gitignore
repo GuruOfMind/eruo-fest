@@ -54,6 +54,16 @@ functions/node_modules/
 functions/lib/
 node_modules/
 
+# Derived ingest artifacts
+**/catalog.export.json
+**/eventim_raw.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
 # Firebase
 .firebase/
 firebase-debug.log

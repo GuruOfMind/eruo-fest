@@ -10,6 +10,7 @@ class Artist {
     this.nameAr,
     this.aliases = const [],
     this.genres = const [],
+    this.category = 'music',
     this.imageUrl,
     this.sourceIds = const {},
     this.isMENA = true,
@@ -21,6 +22,10 @@ class Artist {
   final String? nameAr;
   final List<String> aliases;
   final List<String> genres;
+
+  /// Catalog segment: 'music' or 'comedy' (stand-up). Drives which source
+  /// classification we search and lets the UI group acts.
+  final String category;
   final String? imageUrl;
 
   /// External identifiers keyed by source, e.g.
@@ -41,6 +46,7 @@ class Artist {
         nameAr: map['nameAr'] as String?,
         aliases: (map['aliases'] as List?)?.cast<String>() ?? const [],
         genres: (map['genres'] as List?)?.cast<String>() ?? const [],
+        category: map['category'] as String? ?? 'music',
         imageUrl: map['imageUrl'] as String?,
         sourceIds:
             (map['sourceIds'] as Map?)?.cast<String, String>() ?? const {},
@@ -53,6 +59,7 @@ class Artist {
         'nameAr': nameAr,
         'aliases': aliases,
         'genres': genres,
+        'category': category,
         'imageUrl': imageUrl,
         'sourceIds': sourceIds,
         'isMENA': isMENA,

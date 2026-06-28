@@ -1,8 +1,10 @@
 import * as admin from "firebase-admin";
 
 import { bandsintownAdapter } from "./adapters/bandsintown";
+import { eventimAdapter } from "./adapters/eventim";
 import { ticketmasterAdapter } from "./adapters/ticketmaster";
 import { AffiliateConfig, defaultAffiliateConfig } from "./affiliate";
+import { buildMatcher } from "./matching";
 import { dedupeBatch, mergeEvents, normalizeEvent } from "./normalize";
 import { ArtistResolver, NormalizedEvent, RawEvent } from "./types";
 
@@ -14,8 +16,9 @@ import { ArtistResolver, NormalizedEvent, RawEvent } from "./types";
 export interface IngestFetchers {
   // Per-artist keyword search — the right model for a curated catalog: a
   // city-wide scan never intersects niche MENA artists, but searching each
-  // artist by name surfaces their actual tour dates.
-  ticketmasterByKeyword(keyword: string): Promise<unknown>;
+  // artist by name surfaces their actual tour dates. `classification` is the
+  // Ticketmaster segment ("music" or "comedy").
+  ticketmasterByKeyword(keyword: string, classification?: string): Promise<unknown>;
   // Optional: only wired when BANDSINTOWN_APP_ID is set. Disabled for now.
   bandsintownByArtist?(artistName: string): Promise<unknown>;
 }
@@ -43,19 +46,14 @@ export function europeanCountries(
 }
 
 /**
- * Builds a name→catalog-id resolver from the `artists` collection, indexing
- * the Latin name, Arabic name, and aliases (all lower-cased).
+ * Builds a name→catalog-id resolver from the `artists` collection. Delegates to
+ * the fuzzy [buildMatcher] (normalized exact + token-subsequence) so noisy
+ * Ticketmaster / Eventim names still resolve to catalog artists.
  */
 export function buildResolver(
   artists: { id: string; name?: string; nameAr?: string; aliases?: string[] }[],
 ): ArtistResolver {
-  const index = new Map<string, string>();
-  for (const a of artists) {
-    for (const key of [a.name, a.nameAr, ...(a.aliases ?? [])]) {
-      if (key) index.set(key.trim().toLowerCase(), a.id);
-    }
-  }
-  return (name: string) => index.get(name.trim().toLowerCase()) ?? null;
+  return buildMatcher(artists);
 }
 
 /**
@@ -69,7 +67,7 @@ export function buildEvents(
   now?: Date,
   allowedCountries?: Set<string>,
 ): NormalizedEvent[] {
-  const adapters = [ticketmasterAdapter, bandsintownAdapter];
+  const adapters = [ticketmasterAdapter, bandsintownAdapter, eventimAdapter];
   const raw: RawEvent[] = [];
   for (const { adapterSource, payload } of payloads) {
     const adapter = adapters.find((a) => a.source === adapterSource);
@@ -94,6 +92,7 @@ export async function runIngest(
   db: admin.firestore.Firestore,
   fetchers: IngestFetchers,
   affiliateConfig: AffiliateConfig = defaultAffiliateConfig(),
+  extraPayloads: { adapterSource: string; payload: unknown }[] = [],
 ): Promise<{ upserted: number; created: NormalizedEvent[] }> {
   const artistsSnap = await db.collection("artists").get();
   const artists = artistsSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
@@ -102,12 +101,13 @@ export async function runIngest(
   // Search each catalog artist by name across the sources. A single artist's
   // source failure is logged and skipped — one error must not abort the run.
   const payloads: { adapterSource: string; payload: unknown }[] = [];
-  for (const a of artists as { name?: string }[]) {
+  for (const a of artists as { name?: string; category?: string }[]) {
     if (!a.name) continue;
+    const classification = a.category === "comedy" ? "comedy" : "music";
     try {
       payloads.push({
         adapterSource: "ticketmaster",
-        payload: await fetchers.ticketmasterByKeyword(a.name),
+        payload: await fetchers.ticketmasterByKeyword(a.name, classification),
       });
     } catch (e) {
       console.warn(`ticketmaster fetch failed for ${a.name}:`, (e as Error).message);
@@ -124,6 +124,10 @@ export async function runIngest(
       }
     }
   }
+
+  // Pre-fetched source payloads (e.g. Eventim from the Python step) join the
+  // same normalize/dedupe pipeline so TM + Eventim merge into one event.
+  payloads.push(...extraPayloads);
 
   const events = buildEvents(
     payloads,

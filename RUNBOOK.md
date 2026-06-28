@@ -29,8 +29,19 @@ cd functions
 cp .env.example .env          # then fill in keys (see below)
 npm install
 npm run seed                  # writes artists + venues to Firestore
-npm run ingest                # pull → upsert events → notify followers
+npm run ingest                # Ticketmaster pull → upsert events → notify followers
 ```
+
+To also include **Eventim** (Python, via pyventim) in the same dedupe-merged run:
+```bash
+pip install -r eventim/requirements.txt
+cd functions
+npm run export-catalog -- /tmp/catalog.json
+python ../eventim/fetch_eventim.py --catalog /tmp/catalog.json \
+    --out /tmp/eventim_raw.json --markets GERMANY,FRANCE,NETHERLANDS,BELGIUM
+EVENTIM_RAW_PATH=/tmp/eventim_raw.json npm run ingest
+```
+The GitHub Actions workflow does all of this automatically each run.
 `.env` needs at minimum:
 - `GOOGLE_APPLICATION_CREDENTIALS=./service-account.json`
 - `TICKETMASTER_API_KEY=...`  (developer.ticketmaster.com — free)

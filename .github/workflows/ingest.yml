@@ -14,9 +14,6 @@ concurrency:
 jobs:
   ingest:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: functions
     steps:
       - uses: actions/checkout@v4
 
@@ -26,7 +23,16 @@ jobs:
           cache: npm
           cache-dependency-path: functions/package-lock.json
 
-      - run: npm ci
+      - name: Install Node deps
+        working-directory: functions
+        run: npm ci
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Eventim (pyventim) deps
+        run: pip install -r eventim/requirements.txt
 
       # Materialize the service-account key from a secret for ADC.
       - name: Write service account
@@ -34,10 +40,25 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
+      # Export the catalog names, then fetch Eventim events for them (Python).
+      - name: Export catalog
+        working-directory: functions
+        run: npm run export-catalog -- "$RUNNER_TEMP/catalog.json"
+
+      - name: Fetch Eventim (pyventim)
+        run: >
+          python eventim/fetch_eventim.py
+          --catalog "$RUNNER_TEMP/catalog.json"
+          --out "$RUNNER_TEMP/eventim_raw.json"
+          --markets "${{ vars.EVENTIM_MARKETS || 'GERMANY,FRANCE,NETHERLANDS,BELGIUM,AUSTRIA,SWITZERLAND' }}"
+        continue-on-error: true # Eventim is best-effort; never block Ticketmaster ingest
+
       - name: Run ingest + notify
+        working-directory: functions
         run: npm run ingest
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sa.json
+          EVENTIM_RAW_PATH: ${{ runner.temp }}/eventim_raw.json
           TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
           BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
           EUROFEST_TM_AFFILIATE: ${{ secrets.EUROFEST_TM_AFFILIATE }}

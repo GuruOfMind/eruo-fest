@@ -69,4 +69,39 @@ const List<Artist> kMenaArtistsSeed = [
   Artist(id: 'mashrou-leila', name: 'Mashrou\' Leila', nameAr: 'مشروع ليلى', genres: ['Indie', 'Rock']),
   Artist(id: 'yasmine-hamdan', name: 'Yasmine Hamdan', nameAr: 'ياسمين حمدان', genres: ['Indie']),
   Artist(id: 'elyanna', name: 'Elyanna', nameAr: 'إليانا', genres: ['Pop', 'Alternative']),
+  Artist(id: 'dina-elwedidi', name: 'Dina El Wedidi', nameAr: 'دينا الوديدي', genres: ['Indie']),
+  Artist(id: 'adonis', name: 'Adonis', nameAr: 'أدونيس', genres: ['Indie', 'Rock']),
+  Artist(id: 'autostrad', name: 'Autostrad', nameAr: 'أوتوستراد', genres: ['Indie']),
+
+  // — More Khaleeji / Iraqi —
+  Artist(id: 'mohamed-abdo', name: 'Mohammed Abdu', nameAr: 'محمد عبده', genres: ['Khaleeji', 'Tarab']),
+  Artist(id: 'abdul-majeed-abdullah', name: 'Abdul Majeed Abdullah', nameAr: 'عبدالمجيد عبدالله', genres: ['Khaleeji']),
+  Artist(id: 'majid-al-mohandis', name: 'Majid Al Mohandis', nameAr: 'ماجد المهندس', genres: ['Khaleeji', 'Iraqi']),
+  Artist(id: 'saif-nabeel', name: 'Saif Nabeel', nameAr: 'سيف نبيل', genres: ['Iraqi', 'Pop']),
+  Artist(id: 'rahma-riad', name: 'Rahma Riad', nameAr: 'رحمة رياض', genres: ['Iraqi', 'Pop']),
+  Artist(id: 'aseel-hameem', name: 'Aseel Hameem', nameAr: 'أصيل هميم', genres: ['Iraqi']),
+
+  // — More Egyptian Pop / Shaabi / Mahraganat —
+  Artist(id: 'ramy-sabry', name: 'Ramy Sabry', nameAr: 'رامي صبري', genres: ['Pop']),
+  Artist(id: 'ramy-gamal', name: 'Ramy Gamal', nameAr: 'رامي جمال', genres: ['Pop']),
+  Artist(id: 'bahaa-sultan', name: 'Bahaa Sultan', nameAr: 'بهاء سلطان', genres: ['Pop']),
+  Artist(id: 'hamada-helal', name: 'Hamada Helal', nameAr: 'حمادة هلال', genres: ['Pop']),
+  Artist(id: 'ahmed-saad', name: 'Ahmed Saad', nameAr: 'أحمد سعد', genres: ['Shaabi', 'Pop']),
+  Artist(id: 'mahmoud-el-esseily', name: 'Mahmoud El Esseily', nameAr: 'محمود العسيلي', genres: ['Pop']),
+  Artist(id: 'hassan-shakosh', name: 'Hassan Shakosh', nameAr: 'حسن شاكوش', genres: ['Mahraganat']),
+  Artist(id: 'omar-kamal', name: 'Omar Kamal', nameAr: 'عمر كمال', genres: ['Mahraganat']),
+
+  // — Stand-up comedy (Arab comedians touring Europe/diaspora) —
+  Artist(id: 'bassem-youssef', name: 'Bassem Youssef', nameAr: 'باسم يوسف', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'mo-amer', name: 'Mo Amer', nameAr: 'مو عامر', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'ramy-youssef', name: 'Ramy Youssef', nameAr: 'رامي يوسف', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'maz-jobrani', name: 'Maz Jobrani', nameAr: 'ماز جبراني', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'nemr', name: 'Nemr', nameAr: 'نمر', aliases: ['Nemr Abou Nassar'], genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'eman-el-husseini', name: 'Eman El Husseini', nameAr: 'إيمان الحسيني', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'wonho-chung', name: 'Wonho Chung', nameAr: 'ونهو تشونغ', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'ahmed-ahmed', name: 'Ahmed Ahmed', nameAr: 'أحمد أحمد', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'amer-zahr', name: 'Amer Zahr', nameAr: 'عامر زهر', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'hisham-fageeh', name: 'Hisham Fageeh', nameAr: 'هشام فقيه', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'ibraheem-alkhairallah', name: 'Ibraheem Alkhairallah', nameAr: 'إبراهيم الخير الله', genres: ['Comedy'], category: 'comedy'),
+  Artist(id: 'fahad-albutairi', name: 'Fahad Albutairi', nameAr: 'فهد البتيري', genres: ['Comedy'], category: 'comedy'),
 ];

@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "seed": "npm run build && node lib/seed.js",
+    "export-catalog": "npm run build && node lib/export-catalog.js",
     "ingest": "npm run build && node lib/runner.js",
     "deploy:blaze": "firebase deploy --only functions"
   },
